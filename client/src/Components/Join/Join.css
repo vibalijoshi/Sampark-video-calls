@@ -1,0 +1,71 @@
+.flexbox-join-page {
+  /* padding-top: 5%; */
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 50px;
+
+ 
+  /* justify-content: center;
+  
+  place-content: center;
+  margin: auto;
+  text-align: center;
+  background-color:white;
+  height: 90vh; */
+  
+}
+.flexbox-join-enter-button{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.flexbox-join-enter-button h1{
+  font-size: 1rem;
+}
+.flexbox-join-page .video-div video{
+  width: 100%;
+  border-radius: 25px;
+  max-width: 60vw;
+  
+  /* float:left; */
+  /* width:75%; */
+  /* overflow:hidden; */
+  /* margin-left:-50%; */
+  box-shadow:
+    0 0 5px 5px #00BFD8,  /* inner white */
+    0 0 5px 5px #fff, /* middle magenta */
+    0 0 5px 5px #fff; /* outer cyan */
+}
+.flexbox-join-enter{
+  display: flex;
+  background-color: #E1E1E1;
+  border-radius: 50px;
+  padding-left: 30px;
+}
+
+.join-page input:focus {
+  border-color: #2cbdc7;
+}
+
+.join-page .join-btns-div {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: auto;
+  padding: 1rem 0.5rem;
+}
+
+
+.flexbox-control-aud-vid{
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-evenly;
+}
+@media screen and (max-width: 900px) {
+  .flexbox-join-page{
+    flex-direction: column;
+  }
+}

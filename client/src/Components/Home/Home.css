@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{
+  font-family: 'Poppins', sans-serif;
+}
+.home-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+  padding:20px;
+}
+.home-header-title{
+  margin:20px;
+  font-size: 3.4rem;
+  font-weight: 900;
+  line-height: 4.75rem;
+}
+.home-header-title-blue{
+  color:#00bfd8;
+}
+
+.home-meet-join-container{
+  margin:20px;
+  border-radius:10px;
+  width:fit-content;
+}
+.home-meeting-start{
+  display: inline;
+  margin:0px 5px;
+  padding:10px;
+  border-radius:5px;
+  border:none;
+  cursor: pointer;
+  background-color:#00bfd8;
+  color: white;
+}
+.home-meeting-code{
+  
+  margin:0px 5px;
+  padding:10px;
+  border-radius:5px;
+  border:2px solid #00bfd8;
+  width:16em;
+}
+.home-join-meeting{
+  display: inline;
+  margin:0px 5px;
+  padding:10px;
+  border-radius:5px;
+  border:none;
+  cursor: pointer;
+  background-color:#00bfd8;
+  color: white;
+}
+.home-svg{
+  margin-left:10px;
+  width:50vw;
+  max-height:100%;
+}
+
+.home-feature{
+  display: flex;
+  height:40vh;
+  justify-content: space-around;
+  align-items: center;
+  padding:0 10vw;
+  margin-bottom:10vh
+}
+
+.ft-svg{
+  margin:0 10px;
+  width:50vw;
+  max-height:100%;
+}
+
+.ft-desc h1{
+  font-weight: 900;
+  font-size: 2rem;
+}
+.ft-desc p{
+  font-weight: 400;
+  font-size: 1rem;
+}
+.ft-desc-head h1{
+  font-weight: 700;
+  font-size: 1rem;
+  margin-left:20px;
+}
+.ft-desc-center h1{
+  font-weight: 900;
+  font-size: 3rem;
+  text-align: center;  
+  padding-bottom: 40px;
+
+}
+.home-footer{
+  display: flex;
+  height: 20vh;
+  align-items: center;
+  font-size: 1em;
+  justify-content: center;
+  background-color:#00bfd8 ;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .home-header{
+    flex-direction: column;
+  }
+  .home-feature{
+    flex-direction: column;
+  }
+}

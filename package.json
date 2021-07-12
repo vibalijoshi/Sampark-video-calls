@@ -1,0 +1,28 @@
+{
+  "name": "sampark",
+  "version": "1.0.0",
+  "description": "Instant Chat and Video Calls",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "keywords": [],
+  "author": "Vibali Joshi",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2",
+    "styled-components": "^5.3.0",
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
