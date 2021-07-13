@@ -10,7 +10,7 @@ const io = require('socket.io')(server, {
 });
 
 app.use(cors());
-
+// connection event received when a user joins the app
 io.on('connection', (socket) => {
   socket.emit('me', socket.id);
   
@@ -37,7 +37,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('send-changes', (delta, userId) => {
-    // console.log(userId)
     io.to(userId).emit('recieve-changes', delta);
   });
 
@@ -54,9 +53,7 @@ io.on('connection', (socket) => {
   socket.on('chatRoomEnded', (userToUpdate) => {
     io.to(userToUpdate).emit('chatRoomEnded');
   });
-  // socket.on('disconnect', () => {
-  //   socket.broadcast.emit('callended');
-  // });
+  
 });
 
 app.get('/', (req, res) => {
