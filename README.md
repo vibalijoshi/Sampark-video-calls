@@ -39,11 +39,11 @@ Sampark or connect one on one with ease. It is a simplified online meeting platf
 
 ## Invite Friends
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/chatRoom.gif)
-## Chat With your peer
+## Chat before call
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/messagesV.jpeg)
 ## Join Call
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/VibaliJoin.png)
-## Chat before Call
+## Chat with your peer
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/Messages%20in%20cal.png)
 ## Meeting Page
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/OnlyMeAndIchita.png)
