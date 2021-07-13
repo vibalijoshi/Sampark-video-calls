@@ -35,11 +35,11 @@ const ContextProvider = ({ children }) => {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
+  //if the application is not connected to the internet, display this alert
   useEffect(() => {
     if (!navigator.onLine) alert('Connect to internet!');
   }, [navigator]);
-
+  
   useEffect(() => {
     socket.on('me', (id) => {
       setMe(id);
@@ -83,15 +83,18 @@ const ContextProvider = ({ children }) => {
       
     });
   }, []);
+  //function for leaving the chat room
   const leaveChatRoom = (history) =>{
     socket.emit('chatRoomEnded', otherUser);
     history.push('/');
     message.success('Meet Ended');
     window.location.reload();
   }
+  //function to let the other person know whether you want to show your video
   const showVideoToOtherUser=()=>{
     socket.emit('showVideoToOtherUser',(otherUser))
   }
+  //function to answer the call
   const answerCall = () => {
     setCallAccepted(true);
     setOtherUser(call.from);
@@ -115,11 +118,12 @@ const ContextProvider = ({ children }) => {
     peer.signal(call.signal);
     connectionRef.current = peer;
   };
-
+  //function to call the other person
   const callUser = (id) => {
     message.info(
       `Waiting for the host to let you in..`
     );
+    //Initiating Peer Connection
     const peer = new Peer({ initiator: true, trickle: false, stream });
     setOtherUser(id);
 
@@ -150,7 +154,7 @@ const ContextProvider = ({ children }) => {
 
     connectionRef.current = peer;
   };
-  
+  //function to end the video call
   const endCall = (history) => {
     socket.emit('callended', otherUser);
     setCallEnded(true);
@@ -158,7 +162,7 @@ const ContextProvider = ({ children }) => {
     history.push('/chatRoom');
     message.success('Meet Ended');
   };
-
+  //function to toggle video state
   const updateVideoStatus = () => {
     socket.emit('updateMyMedia', {
       data: { type: 'video', mediaStatus: [!myVideoStatus] },
@@ -168,7 +172,7 @@ const ContextProvider = ({ children }) => {
     stream.getVideoTracks()[0].enabled = !myVideoStatus;
     setMyVideoStatus(!myVideoStatus);
   };
-
+  //function to toggle mic 
   const updateMicStatus = () => {
     socket.emit('updateMyMedia', {
       data: { type: 'audio', mediaStatus: [!myMicStatus] },
