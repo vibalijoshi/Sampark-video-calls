@@ -30,7 +30,6 @@ const JoinRoom = (props) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((res) => {
-        //res.getAudioTracks()[0].enabled = true;
         res.getAudioTracks()[0].enabled = false;
         setStream(res);
       });
@@ -70,7 +69,7 @@ const JoinRoom = (props) => {
             </span>
           </label>
 
-
+          {/* show start for new room and join for other participant */}
           {newMeet ? (
             <button
               className='chatroom-meeting-btn'
@@ -92,7 +91,7 @@ const JoinRoom = (props) => {
                   message.error('Please enter your name');
                   return;
                 }
-
+                //call the user with this id
                 callUser(meetingCode);
               }}
             >
@@ -114,10 +113,6 @@ const JoinRoom = (props) => {
         <div>
          <p>(Your video is not visible)</p> 
         </div>
-
-
-
-
       </div>
     </>
   );
