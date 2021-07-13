@@ -28,9 +28,9 @@ const Join = (props) => {
     updateMicStatus,
     otherUser,
     showVideoToOtherUser
-    // socketState: socket,//newww
   } = useContext(SocketContext);
 
+  //reference for my video
   const myPreviewVideo = useRef();
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const Join = (props) => {
       window.location.reload();
       return;
     }
+    //to get the video and audio
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((res) => {
@@ -56,7 +57,7 @@ const Join = (props) => {
           <h1>Your video appears like this</h1>
           
           
-      
+          {/* video preview */}
           <div className='video-div'>
             {stream ? (
               <video
@@ -69,6 +70,7 @@ const Join = (props) => {
               <Spinner />
             )}
           </div>
+          {/* video controls (mute/unmute, video off/video on) */}
           <div className="flexbox-control-aud-vid">
                 <button
                   onClick={() => updateMicStatus()}
@@ -93,7 +95,7 @@ const Join = (props) => {
                 </button>
               </div>
         </div>
-
+        {/* name input */}
         {stream && (
           <>
             <div className="flexbox-join-enter-button">
@@ -114,7 +116,7 @@ const Join = (props) => {
                   </span>
                 </label>
 
-
+                {/* show start for the host and join for others */}
                 {newMeet ? (
                   <button
                     className='chatroom-meeting-btn'
