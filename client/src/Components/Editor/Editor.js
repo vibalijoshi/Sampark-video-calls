@@ -1,3 +1,4 @@
+// component for the collaborative whiteboard
 import {useEffect, useCallback, useContext } from 'react';
 import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
@@ -60,7 +61,6 @@ const Editor = () => {
   useEffect(() => {
     if (!socket || !quill) return;
     const handler = (delta) => {
-      // console.log(delta)
       quill.updateContents(delta);
     };
 
