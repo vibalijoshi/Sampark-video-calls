@@ -2,47 +2,35 @@ import React, { useContext, useState, useEffect } from 'react';
 import { SocketContext } from '../../SocketContext';
 import Editor from '../Editor/Editor';
 import Options from '../Options/Options';
-import MicIcon from '@material-ui/icons/Mic';
-import MicOffIcon from '@material-ui/icons/MicOff';
 import './Meet.css';
-import homeIcon1 from '../../assets/logoSampark.png';
 import noteIcon from '../../assets/NoteImg.png';
 import Spinner from '../../common/Spinner';
 import saveAs from 'file-saver';
 import { pdfExporter } from 'quill-to-pdf';
 import { message } from 'antd';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { SportsHockey } from '@material-ui/icons';
 
 const Meet = (props) => {
   const {
-    me,
-    call,
-    callAccepted,
-    callEnded,
+    callAccepted,    
     name,
     myVideo,
     userVideo,
     stream,
     setStream,
     myVideoStatus,
-    myMicStatus,
     userVideoStatus,
-    userMicStatus,
     showEditor,
     otherUserStream,
     otherUser,
     otherUserName,
     quill,
-    setQuill,
     showChatBox,
     showNotesBox,
-    connectionRef,
     showOtherUserVideo,
     setShowOtherUserVideo,
     showVideoToOtherUser,
     socketState: socket,
-    newMeet
   } = useContext(SocketContext);
 
   const [mobileView, setMobileView] = useState(false);
@@ -51,7 +39,7 @@ const Meet = (props) => {
   const resize = () => {
     setMobileView(window.innerWidth <= 900);
   };
-    //new thing
+  //event that tells that the Other person allowed me to see him
   useEffect(() => {
     
     socket.on('showVideoToOtherUser',()=>{
@@ -60,17 +48,20 @@ const Meet = (props) => {
     });
 
   }, []);
+  //gives delay of 2 seconds such that no empty div is presented instead of the video.
   useEffect(() =>{
     setTimeout(() => {
       showVideoToOtherUser();
-      console.log("dekhne do naye wale ko")
-      console.log(otherUser)
     }, 2000);
-  },[otherUser])
+  },[otherUser]);
+
+  //resize the window
   useEffect(() => {
     resize();
     window.addEventListener('resize', resize);
   }, []);
+
+  //loader
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
@@ -79,6 +70,7 @@ const Meet = (props) => {
     }
   }, [loading]);
 
+  //set the stream
   useEffect(() => {
     if (loading) return;
     if (stream && myVideoStatus) {
@@ -93,14 +85,17 @@ const Meet = (props) => {
       });
   }, [loading]);
 
+  //change the state of the video
   useEffect(() => {
     if (myVideo.current) myVideo.current.srcObject = stream;
   }, [myVideoStatus]);
 
+  //change the state of the user video
   useEffect(() => {
     if (userVideo.current) userVideo.current.srcObject = otherUserStream;
   }, [otherUserStream, userVideoStatus, loading]);
 
+  //function to download and save as pdf
   const downloadPdf = async () => {
     const delta = quill.getContents();
     const pdfAsBlob = await pdfExporter.generatePdf(delta);
@@ -108,6 +103,7 @@ const Meet = (props) => {
     saveAs(pdfAsBlob, `Meeting Notes.pdf`);
   };
 
+  //loader/spinner
   if (loading) {
     return (
       <div
@@ -154,7 +150,7 @@ const Meet = (props) => {
                 <Spinner />
               )}
             </div>
-            
+            {/* change layout */}
             {showOtherUserVideo && (callAccepted &&(
               <div className='video-frame'>
                 {userVideoStatus ? (
