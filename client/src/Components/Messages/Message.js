@@ -1,3 +1,4 @@
+//component for showing chat bubbles
 import { useContext } from 'react';
 import { SocketContext } from '../../SocketContext';
 import './Messages.css';
