@@ -1,3 +1,4 @@
+//component for bottom options on the meet page
 import React, { useContext, useState, useEffect } from 'react';
 import { SocketContext } from '../../SocketContext';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -49,7 +50,7 @@ const Options = (props) => {
   const resize = () => {
     setMobileView(window.innerWidth <= 600);
   };
-
+  // resize window
   useEffect(() => {
     resize();
     window.addEventListener('resize', resize);
@@ -62,6 +63,8 @@ const Options = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  //event tells us if the call is accepted or not
   useEffect(() => {
     if (call && call.isRecievedCall && !callAccepted) {
       setOpen(true);
@@ -74,9 +77,8 @@ const Options = (props) => {
     <>
       <div className= 'options'>
       <Clock format={'hh-mm'} />
+      {/* video, audio, end call buttons */}
       <div className = 'options left-side-options'>
-        
-
         <button
           onClick={() => updateVideoStatus()}
           className={!myVideoStatus ? 'bg-grey tooltip' : 'bg-white tooltip'}
@@ -109,6 +111,7 @@ const Options = (props) => {
           </span>
         </button>
         </div>
+        {/* buttons on the right side */}
         <div className = 'options right-side-options'>
         <button className='tooltip' onClick={handleClick}>
           <PersonAddIcon />
@@ -120,23 +123,23 @@ const Options = (props) => {
           className='tooltip'
           type='primary'
           onClick={() => 
-            setShowChatBox(!showChatBox)
-            
+            setShowChatBox(!showChatBox)            
           }
           
         >
           <ChatIcon />
           <span className='tooltiptext'>Messages</span>
         </button>
-        <button
-                className={showEditor ? 'bg-grey tooltip' : 'bg-white tooltip'}
-                type='primary'
-                onClick={() => {
-                    setShowEditor(!showEditor);}}
-                >
-                <CreateIcon />
-                <span className='tooltiptext'>Whiteboard</span>
-                </button>
+          <button
+            className={showEditor ? 'bg-grey tooltip' : 'bg-white tooltip'}
+            type='primary'
+            onClick={() => {
+              setShowEditor(!showEditor);
+            }}
+          >
+            <CreateIcon />
+            <span className='tooltiptext'>Whiteboard</span>
+          </button>
         <Menu
           id='simple-menu'
           anchorEl={anchorEl}
@@ -178,16 +181,14 @@ const Options = (props) => {
           
           </div>
         </Menu>
-
+        {/* alert when the other user joins */}
         {call && (
-          <Dialog open={open} aria-labelledby='draggable-dialog-title'
-          PaperProps={{
-    style: {
-     
-     padding: '20px'
-    },
-    
-  }}>
+            <Dialog open={open} aria-labelledby='draggable-dialog-title'
+              PaperProps={{
+                style: {
+                  padding: '20px'
+                },
+              }}>
             <DialogContent>
               <div className='call-div'>
               <p>{call.callerName} wants to Sampark</p>
