@@ -1,9 +1,10 @@
+//component for the chat room before and after meetings
 import { useState, useEffect, useRef, useContext } from "react";
 import { Button, message, notification } from "antd";
 import { SocketContext } from "../../SocketContext";
 import Message from "../Messages/Message";
 import DialogContent from "@material-ui/core/DialogContent";
-import {Dialog} from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import WarningFilled from "@ant-design/icons";
 import './chatroom.css'
 import "../Messages/Messages.css";
@@ -35,10 +36,11 @@ const ChatRoom = (props) => {
     const [newMessage, setNewMessage] = useState("");
     const [anchorEl, setAnchorEl] = useState(null);
     const msgRef = useRef();
-
+    //scrolls to the bottom when a new message arrives
     useEffect(() => {
         if (msgRef.current) msgRef.current.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
+    //managing state for call accepted
     useEffect(() => {
         if (call && call.isRecievedCall && !callAccepted) {
             setOpen(true);
@@ -48,44 +50,49 @@ const ChatRoom = (props) => {
     }, [call, callEnded]);
 
     useEffect(() => {
+        //recieving message
         socket.on("recieve-message", (data) => {
             setMessages((messages) => [...messages, data]);
         });
-
-        socket.on('showVideoToOtherUser',()=>{
+        //event for Other person allowed me to see him
+        socket.on('showVideoToOtherUser', () => {
             setShowOtherUserVideo(true);
-            console.log("Other person allowed me to see him")
-          });
+        });
 
-        socket.on("chatRoomEnded",()=>{
+        //event that notifies that the other person has left the chatroom
+        socket.on("chatRoomEnded", () => {
             notification.open({
-              message:`Other User left`,
-              placement:"topLeft",
-              style: { backgroundColor: '#00BFD8' },
-              icon: <WarningFilled style={{ color: "white" }} />,
+                message: `Other User left`,
+                placement: "topLeft",
+                style: { backgroundColor: '#00BFD8' },
+                icon: <WarningFilled style={{ color: "white" }} />,
             })
-          })
+        })
         return () => {
+            //clean up function to close the socket events when the component unmounts
             socket.off("recieve-message");
             socket.off("chatRoomEnded");
         };
     }, []);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-      };
-      const handleClose = () => {
+    };
+    const handleClose = () => {
         setAnchorEl(null);
-      };
+    };
+
+    //function to send message
     const sendMessage = () => {
         if (newMessage.trim().length <= 0) {
             notification.open({
                 message: `Please Enter Something!`,
                 placement: "topLeft",
-                style: { backgroundColor: '#00BFD8'},
+                style: { backgroundColor: '#00BFD8' },
                 icon: <WarningFilled style={{ color: "white" }} />,
             });
             return;
         }
+        //responsible for storing the time of the texts
         let time = new Date();
         let msgtimesent = `${time.getHours()}:${time.getMinutes()}`
         let tempMessage = { text: newMessage.trim(), user: me, time: msgtimesent };
@@ -111,15 +118,16 @@ const ChatRoom = (props) => {
                         Sampark
                     </div>
                     <div className="chatroom-button-container">
-                       {newMeet?(
-                        <button className='chatroom-meeting-btns tooltip invite-css' onClick={handleClick}>
-                            <span style={{ marginRight: '1em' }}>Invite</span>  <PersonAddIcon />
-                            <span className='tooltiptext'>Invite</span>
-                        </button>
-                       ):
-                       (
-                       (null)
-                       )}
+                        {newMeet ? (
+                            <button className='chatroom-meeting-btns tooltip invite-css' onClick={handleClick}>
+                                <span style={{ marginRight: '1em' }}>Invite</span>  <PersonAddIcon />
+                                <span className='tooltiptext'>Invite</span>
+                            </button>
+                        ) :
+                            (
+                                (null)
+                            )}
+                        {/* container for the invite button message */}
                         <Menu
                             id='simple-menu'
                             anchorEl={anchorEl}
@@ -173,7 +181,7 @@ const ChatRoom = (props) => {
                                 props.history.push("join");
                             }}>
                             Join Video Call
-                        </button>                 
+                        </button>
 
                         <button className="chatroom-meeting-btns leave-room"
                             onClick={() => { leaveChatRoom(props.history) }}
@@ -183,6 +191,7 @@ const ChatRoom = (props) => {
                         </button>
                     </div>
                 </div>
+                {/* Messages are displayed here */}
                 <div className="chatroom-message-desc">
                     Messages
                 </div>
@@ -193,13 +202,13 @@ const ChatRoom = (props) => {
                         ))
                     ) : (
                         <div>
-                        <div className = 'chatroom-message-desc'>
-                        {newMeet?( <p>It is quite empty here..maybe invite someone?</p>):(  <p>It is quite empty here...start chatting or join the call!</p>)}
-                      
-                        </div>
-                        <div className= 'chatroom-message-desc'>
-                        <EmpMsgSvg />
-                        </div>
+                            <div className='chatroom-message-desc'>
+                                {newMeet ? (<p>It is quite empty here..maybe invite someone?</p>) : (<p>It is quite empty here...start chatting or join the call!</p>)}
+
+                            </div>
+                            <div className='chatroom-message-desc'>
+                                <EmpMsgSvg />
+                            </div>
                         </div>
 
                     )}
@@ -225,24 +234,19 @@ const ChatRoom = (props) => {
                             sendMessage();
                         }}
                     >
-
-
                         Send
                     </button>
                 </div>
             </div>
+            {/* alert for accepting the user */}
             {call && (
                 <Dialog open={open} aria-labelledby="draggable-dialog-title"
                     PaperProps={{
                         style: {
-
                             padding: '20px'
-                           
                         },
-
                     }}
                 >
-                  
                     <DialogContent>
                         <div className="call-div">
                             <p>{call.callerName} wants to Sampark</p>
