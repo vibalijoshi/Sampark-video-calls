@@ -25,6 +25,7 @@ const Messages = () => {
 
   const [newMessage, setNewMessage] = useState('');
   const msgRef = useRef();
+  //custom styles for the message dialouge
   const useStyles = makeStyles({
     dialog: {
       position: 'absolute',
@@ -32,16 +33,22 @@ const Messages = () => {
     }
   });
   const classes = useStyles();
+  //for scrolling
   useEffect(() => {
     if (msgRef.current) msgRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [messages, showChatBox]);
+
+  //click on notifications to show chat box
 function clickOnNotifs()
 {
   setShowChatBox(!showChatBox);
 }
+
+  // receive messages
   useEffect(() => {
     socket.on('recieve-message', (data) => {
       setMessages((messages) => [...messages, data]);
+       //for notification
         notification.open({
           message: `${otherUserName}` ,
           description: data.text,
@@ -56,6 +63,7 @@ function clickOnNotifs()
 
   const sendMessage = () => {
     if (newMessage.trim().length <= 0) {
+      //for notification
       notification.open({
         message: `Please Enter Something!`,
         onClick: clickOnNotifs,
@@ -65,10 +73,11 @@ function clickOnNotifs()
       });
       return;
     }
-
+    //show time 
     let time = new Date();
     let msgtimesent = `${time.getHours()}:${time.getMinutes()}`
     let tempMessage = { text: newMessage.trim(), user: me,time:msgtimesent };
+    //send messages to other user
     socket.emit('send-message', {
       data: tempMessage,
       userToSend: otherUser,
@@ -77,10 +86,11 @@ function clickOnNotifs()
     setNewMessage('');
   };
 
+  //close chatbox when not in use
   const handleClose = () => {
     setShowChatBox(!showChatBox);
   };
-
+  //send messages by pressing enter
   const handleKeypress = (e) => {
     if (e.key === 'Enter') {
       sendMessage();
@@ -89,6 +99,7 @@ function clickOnNotifs()
 
   return (
     <Dialog 
+    //custom classes for Material UI Component 
     classes={{
         paper: classes.dialog,
         root:classes.dialog
@@ -102,7 +113,6 @@ function clickOnNotifs()
     PaperProps={{
     style: {
       width: '400px',
-      // minHeight: '6.5in',
       height: '90vh',
       margin: '1rem',
       borderRadius:'10px',
@@ -125,6 +135,7 @@ function clickOnNotifs()
       </DialogTitle>
       <DialogContent>
         <div className='outer-div' >
+          {/* map all the messages and show it in the chat box */}
           <div className='messages scrollbar'>
             {messages.length > 0 ? (
               messages.map((item, i) => (
@@ -156,15 +167,11 @@ function clickOnNotifs()
             }}
           >
             <SendButtonSVG />
-
-
-
           </button>
         </div>
         </div>
       </DialogContent>
     </Dialog>
-    // </div>
   );
 };
 
