@@ -1,3 +1,4 @@
+//component for landing page
 import { useContext, useEffect } from 'react';
 import { SocketContext } from '../../SocketContext';
 import { message } from 'antd';
@@ -9,14 +10,14 @@ import MeetingSVG from './MeetingSVG';
 import SecureSVG from './SecureSVG';
 import CollaborationSVG from './CollaborationSVG';
 
-
 const Home = (props) => {
+  //used to get the meeting code for the person who joins the meet
   const paramsCode = props.location.search;
   const { meetingCode, setMeetingCode, setNewMeet } = useContext(SocketContext);
 
   useEffect(() => {
     if (paramsCode.length) {
-      if (paramsCode.substring(0, 5) == '?ref=') return; // for product hunt ref
+      if (paramsCode.substring(0, 5) == '?ref=') return;
       setMeetingCode(paramsCode.substring(1));
     }
     setNewMeet(null);
@@ -68,6 +69,7 @@ const Home = (props) => {
         <HeaderSVG />
 
       </div>
+      {/* body of the page */}
       <div className="ft-desc-center">
         <h1>How <span className="home-header-title-blue">Sampark</span> connects you</h1>
       </div>
@@ -94,6 +96,7 @@ const Home = (props) => {
           <p> Collaborate together on virtual whiteboard. Write notes during calls and save them for later. Code along, annotate your content and a lot more!</p>
         </div>
       </div>
+      {/* end of body */}
       <Footer />
     </div>
   );
