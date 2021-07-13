@@ -30,6 +30,9 @@ Sampark or connect one on one with ease. It is a simplified online meeting platf
 - Client side: React.js (UI), socket.io-client(for Websockets), WebRTC
 - Server side: Node.js, express, socket.io
 
+## Trouble Shoot
+- Sometimes video does not appear due to network problems, make sure to Toggle the video button.
+
 
 ## Landing Page
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/firstOne.gif)
@@ -46,6 +49,7 @@ Sampark or connect one on one with ease. It is a simplified online meeting platf
 ## Chat with your peer
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/Messages%20in%20cal.png)
 ## Meeting Page
+- Sometimes video does not appear due to network problems, make sure to Toggle the video button
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/OnlyMeAndIchita.png)
 ## Whiteboard Feature
 ![Uzoma Medium Gif](https://github.com/vibalijoshi/Sampark-video-calls/blob/main/screenshots/IchitaCollaborative.png)
