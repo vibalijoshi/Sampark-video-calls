@@ -1,4 +1,4 @@
-// Routing of the web application handedled here
+// Routing of the web application handled here
 import { useEffect } from 'react';
 import './App.css';
 import Meet from './Components/Meet/Meet';
@@ -15,12 +15,13 @@ import {
 } from 'react-router-dom';
 
 function App() {
-
+  //if application is not connected to the internet, display this alert.
   useEffect(() => {
     if (!navigator.onLine) alert('Connect to internet!');
   }, [navigator]);
 
   return (
+    //SocketContect provider for the components
     <ContextProvider>
       <Router>
         <Switch>
