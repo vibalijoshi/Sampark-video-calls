@@ -12,18 +12,21 @@ const Notes = () => {
   const { notes, setNotes, showNotesBox, setShowNotesBox} = useContext(SocketContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileView, setMobileView] = useState(false);
-
+  //resize video window on opening notes
   const resize = () => {
     setMobileView(window.innerWidth <= 600);
   };
+
+  //custom styles for the Dialogue Notes box
   const useStyles = makeStyles({
     dialog: {
       position: 'absolute',
-      right: 10,
-      
+      right: 10,      
     }
   });
+
   const classes = useStyles();
+
   useEffect(() => {
     resize();
     window.addEventListener('resize', resize);
@@ -39,6 +42,7 @@ const Notes = () => {
     setAnchorEl(null);
     setShowNotesBox(!showNotesBox);
   };
+
   const downLoadAsPdf = () => {
     if (notes.trim().length == 0) {
       message.error('Please write some text to download');
@@ -58,6 +62,7 @@ const Notes = () => {
           <span className='tooltiptext'>Notes</span>
         </button>
       )}
+      {/* container for the Notes */}
       <Dialog
       classes={{
         paper: classes.dialog
